@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo25/models/task_model.dart';
+import 'package:todo25/widgets/add_new_task_dialog.dart';
+import 'package:todo25/widgets/task_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,6 +11,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int selectedIndex = 0;
+
   List<TaskModel> tasks = [
     TaskModel(title: "T1", subTitle: "ST1", createdAt: DateTime.now()),
     TaskModel(title: "T2", subTitle: "ST1", createdAt: DateTime.now()),
@@ -23,43 +27,60 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Text(selectedIndex.toString()),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) => AddNewTaskDialog(),
+          );
+        },
+      ),
       body: DefaultTabController(
         length: 2,
         child: SafeArea(
           child: Column(
             children: [
               TabBar(
+                onTap: (v) {
+                  setState(() {
+                    selectedIndex = v;
+                  });
+                },
                 tabs: [
                   Tab(text: "DONE"),
                   Tab(text: "WAITING"),
                 ],
               ),
               Expanded(
-                child: TabBarView(
-                  children: [
-                    Center(child: Text("DONE")),
-                    Center(
-                      child: ListView.builder(
-                        itemCount: tasks.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              width: 40,
-                              color: Colors.blue,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  tasks[index].title,
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  itemCount: tasks.length,
+                  itemBuilder: (context, index) {
+                    return selectedIndex == 0 && tasks[index].isCompleted
+                        ? TaskCard(
+                            taskModel: tasks[index],
+
+                            onSwitch: () {
+                              setState(() {
+                                tasks[index].isCompleted =
+                                    !tasks[index].isCompleted;
+                              });
+                            },
+                          )
+                        : selectedIndex == 1 && !tasks[index].isCompleted
+                        ? TaskCard(
+                            taskModel: tasks[index],
+
+                            onSwitch: () {
+                              setState(() {
+                                tasks[index].isCompleted =
+                                    !tasks[index].isCompleted;
+                              });
+                            },
+                          )
+                        : SizedBox();
+                  },
                 ),
               ),
             ],
