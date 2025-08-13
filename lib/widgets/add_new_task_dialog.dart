@@ -99,6 +99,7 @@ class _AddNewTaskDialogState extends State<AddNewTaskDialog> {
                             isCompleted: false,
                           ),
                         );
+                        Navigator.pop(context);
                       } else {
                         print("USER NOT TAMAM");
                       }

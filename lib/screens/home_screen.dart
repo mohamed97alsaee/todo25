@@ -16,6 +16,12 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
 
   @override
+  void initState() {
+    Provider.of<TasksProvider>(context, listen: false).getFromLocalStorage();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<TasksProvider>(
       builder: (context, tasksConsumer, _) {
@@ -24,6 +30,17 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              FloatingActionButton(
+                onPressed: () {
+                  Provider.of<TasksProvider>(
+                    context,
+                    listen: false,
+                  ).getFromLocalStorage();
+                },
+                child: Icon(Icons.code),
+              ),
+              SizedBox(height: 32),
+
               FloatingActionButton(
                 onPressed: () {
                   Provider.of<DarkModeProvider>(

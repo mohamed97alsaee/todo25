@@ -37,6 +37,7 @@ dependencies:
   google_maps:
   google_fonts:
   provider:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
