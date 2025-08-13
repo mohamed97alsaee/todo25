@@ -61,7 +61,7 @@ class TaskCard extends StatelessWidget {
                   ),
 
                   Text(
-                    taskModel.subTitle,
+                    taskModel.subtitle,
                     style: TextStyle(
                       fontWeight: FontWeight.w300,
                       decoration: taskModel.isCompleted
@@ -80,7 +80,7 @@ class TaskCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "${taskModel.createdAt.toIso8601String().substring(0, 10).replaceAll("-", "/")}  ${taskModel.createdAt.toIso8601String().substring(11, 16)}",
+                        "${taskModel.createdAt.substring(0, 10).replaceAll("-", "/")}  ${taskModel.createdAt.substring(11, 16)}",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: mode.isDark ? Colors.white : Colors.black,

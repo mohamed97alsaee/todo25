@@ -3,8 +3,18 @@ import 'package:todo25/models/task_model.dart';
 
 class TasksProvider with ChangeNotifier {
   List<TaskModel> tasks = [
-    TaskModel(title: "T1", subTitle: "ST1", createdAt: DateTime.now()),
-    TaskModel(title: "T2", subTitle: "ST1", createdAt: DateTime.now()),
+    TaskModel(
+      title: "T1",
+      subtitle: "ST1",
+      createdAt: DateTime.now().toIso8601String(),
+      isCompleted: false,
+    ),
+    TaskModel(
+      title: "T2",
+      subtitle: "ST1",
+      createdAt: DateTime.now().toIso8601String(),
+      isCompleted: false,
+    ),
   ];
 
   addNewTask(TaskModel tm) {

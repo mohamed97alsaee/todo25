@@ -18,33 +18,33 @@ class _AddNewTaskDialogState extends State<AddNewTaskDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      child: Padding(
+    return AlertDialog(
+      contentPadding: EdgeInsets.all(0),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "ADD NEW TASK",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.close),
+          ),
+        ],
+      ),
+      content: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Form(
           key: formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "ADD NEW TASK",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.close),
-                  ),
-                ],
-              ),
-
               TextFormField(
                 controller: titleController,
-                decoration: InputDecoration(hint: Text("Title")),
+                decoration: InputDecoration(hintText: "Title"),
                 validator: (v) {
                   if (v!.isEmpty) {
                     return "Title Required!";
@@ -64,7 +64,7 @@ class _AddNewTaskDialogState extends State<AddNewTaskDialog> {
 
               TextFormField(
                 controller: subTitleController,
-                decoration: InputDecoration(hint: Text("SubTitle")),
+                decoration: InputDecoration(hintText: "SubTitle"),
                 validator: (v) {
                   if (v!.isEmpty) {
                     return "SubTitle Required!";
@@ -94,8 +94,9 @@ class _AddNewTaskDialogState extends State<AddNewTaskDialog> {
                         ).addNewTask(
                           TaskModel(
                             title: titleController.text,
-                            subTitle: subTitleController.text,
-                            createdAt: DateTime.now(),
+                            subtitle: subTitleController.text,
+                            createdAt: DateTime.now().toIso8601String(),
+                            isCompleted: false,
                           ),
                         );
                       } else {

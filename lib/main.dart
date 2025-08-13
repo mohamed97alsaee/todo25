@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:todo25/helpers/consts.dart';
 import 'package:todo25/providers/dark_mode_provider.dart';
 import 'package:todo25/providers/tasks_provider.dart';
 import 'package:todo25/screens/splash_screen.dart';
@@ -27,6 +28,17 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(
+              dialogTheme: DialogThemeData(
+                backgroundColor: mode.isDark ? darkColor : Colors.white,
+
+                titleTextStyle: TextStyle(
+                  color: mode.isDark ? Colors.white : Colors.black,
+                ),
+
+                contentTextStyle: TextStyle(
+                  color: mode.isDark ? Colors.white : Colors.black,
+                ),
+              ),
               scaffoldBackgroundColor: mode.isDark ? Colors.black : null,
 
               tabBarTheme: TabBarThemeData(
@@ -36,6 +48,9 @@ class MyApp extends StatelessWidget {
                     : Colors.black.withValues(alpha: 0.5),
               ),
               inputDecorationTheme: InputDecorationTheme(
+                hintStyle: TextStyle(
+                  color: mode.isDark ? Colors.white30 : Colors.black,
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
